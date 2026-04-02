@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museo Digitale delle Sabbie | ITCS Maria Lazzari</title>
+    <meta name="description" content="Esplora la collezione di oltre 800 campioni di sabbia da tutto il mondo.">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Google Charts per la Mappa Interattiva -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Sabbie del Mondo</h1>
+        <p>Museo Digitale ITCS "Maria Lazzari"</p>
+    </header>
+
+    <main>
+        <section class="map-section">
+            <h2 style="text-align:center; color:var(--primary); margin-bottom:1rem; font-family:'Playfair Display', serif;">Esplora per Continente</h2>
+            <div id="regions_div" style="width: 100%; max-width: 900px; height: 500px; margin: 0 auto; border-radius: var(--border-radius); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);"></div>
+            <p style="text-align:center; margin-top:1rem; color:var(--text-muted);">Clicca su un continente per filtrare automaticamente le collezioni.</p>
+        </section>
+
+        <section class="controls-container">
+            <input type="text" id="searchInput" placeholder="🔍 Cerca una sabbia o località...">
+            
+            <select id="continentFilter">
+                <option value="all">Tutti i continenti</option>
+                <option value="Europa">Europa</option>
+                <option value="Africa">Africa</option>
+                <option value="Asia">Asia</option>
+                <option value="Americhe">Americhe (Tutte)</option>
+                <option value="Nord America">Nord America / USA</option>
+                <option value="Sud America">Centro / Sud America</option>
+                <option value="Oceania">Oceania</option>
+            </select>
+        </section>
+
+        <div id="loading" class="loading">Caricamento campioni in corso...</div>
+
+        <section id="gallery" class="gallery hidden">
+            <!-- Cards will be injected here via javascript -->
+        </section>
+
+        <section class="pagination hidden" id="pagination">
+            <button id="btnPrev" class="btn btn-secondary">← Precedente</button>
+            <span id="page-info">Pagina 1 / X</span>
+            <button id="btnNext" class="btn btn-secondary">Successiva →</button>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

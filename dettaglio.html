@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettaglio Campione | Museo Digitale delle Sabbie</title>
+    <meta name="description" content="Dettaglio e scheda completa del campione di sabbia.">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- QR Code Library CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Dettaglio Campione</h1>
+        <p>Esplora al microscopio e scopri l'origine</p>
+    </header>
+
+    <main>
+        <div id="loading" class="loading">Ricerca campione in corso...</div>
+
+        <div id="detail-container" class="detail-container hidden">
+            <a href="index.html" class="back-link">← Torna alla galleria</a>
+            
+            <div class="detail-header">
+                <div>
+                    <!-- Fallback placeholder applied dynamically on error -->
+                    <img id="detail-img" class="detail-img" src="" alt="Immagine Sabbia">
+                </div>
+                <div class="detail-info">
+                    <span id="detail-badge" class="badge">Continente</span>
+                    <h2 id="detail-title" class="detail-title">Nome Sabbia</h2>
+                    
+                    <div class="detail-meta">
+                        <p><strong>🌍 Provenienza:</strong> <span id="detail-prov">Località, Nazione</span></p>
+                        <p><strong>🔢 Identificativo:</strong> <span id="detail-id">000</span></p>
+                    </div>
+
+                    <div class="detail-desc" id="detail-desc">
+                        Descrizione e peculiarità andranno qui.
+                    </div>
+                </div>
+            </div>
+
+            <div class="qr-section">
+                <h3>Vedi sul telefono</h3>
+                <p>Inquadra questo codice per riaprire questa pagina comodamente dal tuo smartphone.</p>
+                <div id="qrcode" class="qr-box"></div>
+            </div>
+        </div>
+        
+        <!-- Error State -->
+        <div id="error-container" class="detail-container hidden" style="text-align: center;">
+            <a href="index.html" class="back-link">← Torna alla galleria</a>
+            <h2>Campione non trovato!</h2>
+            <p>Non è stato possibile caricare i dati di questo campione.</p>
+        </div>
+    </main>
+
+    <script src="js/dettaglio.js"></script>
+</body>
+</html>
