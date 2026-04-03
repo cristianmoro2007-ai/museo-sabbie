@@ -11,29 +11,24 @@
 </head>
 <body>
 
-    <header>
-        <h1>Dettaglio Campione</h1>
-        <p>Esplora al microscopio e scopri l'origine</p>
-    </header>
-
     <main>
-        <div id="loading" class="loading">Ricerca campione in corso...</div>
+        <div id="loading" class="loading">Ricerca campione in corso…</div>
 
         <div id="detail-container" class="detail-container hidden">
             <a href="index.html" class="back-link">← Torna alla galleria</a>
             
             <div class="detail-header">
-                <div>
+                <div class="detail-img-wrapper">
                     <!-- Fallback placeholder applied dynamically on error -->
                     <img id="detail-img" class="detail-img" src="" alt="Immagine Sabbia">
                 </div>
                 <div class="detail-info">
                     <span id="detail-badge" class="badge">Continente</span>
-                    <h2 id="detail-title" class="detail-title">Nome Sabbia</h2>
+                    <h1 id="detail-title" class="detail-title">Nome Sabbia</h1>
                     
                     <div class="detail-meta">
-                        <p><strong>🌍 Provenienza:</strong> <span id="detail-prov">Località, Nazione</span></p>
-                        <p><strong>🔢 Identificativo:</strong> <span id="detail-id">000</span></p>
+                        <p><strong>Provenienza</strong> <span id="detail-prov">Località, Nazione</span></p>
+                        <p><strong>Identificativo</strong> <span id="detail-id">000</span></p>
                     </div>
 
                     <div class="detail-desc" id="detail-desc">
@@ -52,10 +47,14 @@
         <!-- Error State -->
         <div id="error-container" class="detail-container hidden" style="text-align: center;">
             <a href="index.html" class="back-link">← Torna alla galleria</a>
-            <h2>Campione non trovato!</h2>
-            <p>Non è stato possibile caricare i dati di questo campione.</p>
+            <h2 style="font-family: var(--font-display); font-weight: 300; font-size: 2rem; margin-bottom: 1rem;">Campione non trovato</h2>
+            <p style="color: var(--fg-muted);">Non è stato possibile caricare i dati di questo campione.</p>
         </div>
     </main>
+
+    <footer>
+        Museo Digitale delle Sabbie · ITCS "Maria Lazzari" · <a href="https://github.com/cristianmoro2007-ai/museo-sabbie" target="_blank">GitHub</a>
+    </footer>
 
     <script src="js/dettaglio.js"></script>
 </body>

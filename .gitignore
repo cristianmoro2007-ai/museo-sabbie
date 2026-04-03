@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Agent metadata (non serve nel sito pubblicato)
+.agent/
+.gemini/
+
+# Python
+__pycache__/
+*.pyc

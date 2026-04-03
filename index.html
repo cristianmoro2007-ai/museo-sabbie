@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Museo Digitale delle Sabbie | ITCS Maria Lazzari</title>
-    <meta name="description" content="Esplora la collezione di oltre 800 campioni di sabbia da tutto il mondo.">
+    <title>Sabbie del Mondo — Museo Digitale | ITCS Maria Lazzari</title>
+    <meta name="description" content="Esplora la collezione di oltre 800 campioni di sabbia da tutto il mondo. Un archivio digitale unico.">
     <link rel="stylesheet" href="css/style.css">
     <!-- Google Charts per la Mappa Interattiva -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -12,19 +12,21 @@
 <body>
 
     <header>
-        <h1>Sabbie del Mondo</h1>
-        <p>Museo Digitale ITCS "Maria Lazzari"</p>
+        <p class="header-eyebrow">ITCS "Maria Lazzari" — Archivio Digitale</p>
+        <h1>Sabbie <em>del Mondo</em></h1>
+        <p>Un viaggio attraverso oltre ottocento granelli di terra, mare e deserto</p>
+        <span class="header-count" id="sampleCount">Caricamento…</span>
     </header>
 
     <main>
         <section class="map-section">
-            <h2 style="text-align:center; color:var(--primary); margin-bottom:1rem; font-family:'Playfair Display', serif;">Esplora per Continente</h2>
-            <div id="regions_div" style="width: 100%; max-width: 900px; height: 500px; margin: 0 auto; border-radius: var(--border-radius); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);"></div>
-            <p style="text-align:center; margin-top:1rem; color:var(--text-muted);">Clicca su un continente per filtrare automaticamente le collezioni.</p>
+            <h2>Esplora per <span>Continente</span></h2>
+            <div id="regions_div" style="width: 100%; max-width: 900px; height: 500px; margin: 0 auto;"></div>
+            <p class="map-hint">Clicca su un continente per filtrare automaticamente le collezioni</p>
         </section>
 
         <section class="controls-container">
-            <input type="text" id="searchInput" placeholder="🔍 Cerca una sabbia o località...">
+            <input type="text" id="searchInput" placeholder="Cerca una sabbia o località…">
             
             <select id="continentFilter">
                 <option value="all">Tutti i continenti</option>
@@ -38,7 +40,7 @@
             </select>
         </section>
 
-        <div id="loading" class="loading">Caricamento campioni in corso...</div>
+        <div id="loading" class="loading">Ricerca campioni in corso…</div>
 
         <section id="gallery" class="gallery hidden">
             <!-- Cards will be injected here via javascript -->
@@ -50,6 +52,10 @@
             <button id="btnNext" class="btn btn-secondary">Successiva →</button>
         </section>
     </main>
+
+    <footer>
+        Museo Digitale delle Sabbie · ITCS "Maria Lazzari" · <a href="https://github.com/cristianmoro2007-ai/museo-sabbie" target="_blank">GitHub</a>
+    </footer>
 
     <script src="js/main.js"></script>
 </body>

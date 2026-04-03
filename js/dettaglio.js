@@ -1,4 +1,4 @@
-const FALLBACK_IMG = "https://placehold.co/600x400/c29b62/111?text=Immagine\\nNon+Disponibile";
+const FALLBACK_IMG = "https://placehold.co/600x800/e8e3d9/6b6660?text=Immagine%0ANon+Disponibile&font=playfair-display";
 
 async function loadDetail() {
     const params = new URLSearchParams(window.location.search);
@@ -31,6 +31,9 @@ function renderDetail(item) {
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('detail-container').classList.remove('hidden');
 
+    // Update page title
+    document.title = `${item.nome} — Museo Digitale delle Sabbie`;
+
     const img = document.getElementById('detail-img');
     img.src = item.immagine;
     img.onerror = function() {
@@ -46,16 +49,16 @@ function renderDetail(item) {
     document.getElementById('detail-id').textContent = item.id;
     document.getElementById('detail-desc').textContent = item.descrizione;
 
-    // Generate QR Code dynamically pointing to the current exact URL
+    // Generate QR Code
     const currentUrl = window.location.href;
     const qrContainer = document.getElementById('qrcode');
-    qrContainer.innerHTML = ""; // clear any previous qr
+    qrContainer.innerHTML = "";
     
     new QRCode(qrContainer, {
         text: currentUrl,
         width: 150,
         height: 150,
-        colorDark : "#000000",
+        colorDark : "#1c1b18",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });

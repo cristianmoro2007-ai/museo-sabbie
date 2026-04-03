@@ -15,7 +15,25 @@ const btnPrev = document.getElementById('btnPrev');
 const btnNext = document.getElementById('btnNext');
 
 // Fallback image url
-const FALLBACK_IMG = "https://placehold.co/600x400/c29b62/111?text=Anteprima\\nNon+Disponibile";
+const FALLBACK_IMG = "https://placehold.co/600x400/e8e3d9/6b6660?text=Anteprima%0ANon+Disponibile&font=playfair-display";
+
+// ── IntersectionObserver for staggered card reveals ──
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            // Stagger the reveal based on position in view
+            const card = entry.target;
+            const delay = Array.from(card.parentElement.children).indexOf(card) % 6;
+            card.style.transitionDelay = `${delay * 0.06}s`;
+            card.style.transition = 'opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+            card.classList.add('revealed');
+            revealObserver.unobserve(card);
+        }
+    });
+}, {
+    threshold: 0.05,
+    rootMargin: '0px 0px -30px 0px'
+});
 
 async function loadData() {
     try {
@@ -28,10 +46,16 @@ async function loadData() {
         gallery.classList.remove('hidden');
         pagination.classList.remove('hidden');
         
+        // Update sample count in header
+        const countEl = document.getElementById('sampleCount');
+        if (countEl) {
+            countEl.textContent = `${allData.length} campioni catalogati`;
+        }
+
         renderPage();
     } catch (error) {
         console.error(error);
-        loading.textContent = "Errore durante il caricamento del database (dati.json).";
+        loading.textContent = "Errore durante il caricamento del database.";
     }
 }
 
@@ -48,20 +72,18 @@ function renderPage() {
     const itemsToRender = filteredData.slice(startIndex, endIndex);
     
     if (itemsToRender.length === 0) {
-        gallery.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">Nessun campione trovato.</p>`;
+        gallery.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: var(--fg-muted); font-family: var(--font-display); font-style: italic; font-size: 1.2rem; padding: 3rem;">Nessun campione trovato.</p>`;
     } else {
-        itemsToRender.forEach((item, index) => {
+        itemsToRender.forEach((item) => {
             const card = document.createElement('div');
-            card.className = 'card animate-fade-in';
-            card.style.animationDelay = `${index * 0.05}s`;
+            card.className = 'card';
             
-            // On image load error, fallback to generated placeholder
             card.innerHTML = `
                 <div class="card-img-wrapper">
-                    <img src="${item.immagine}" class="card-img" alt="${item.nome}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
+                    <img src="${item.immagine}" class="card-img" alt="${item.nome}" loading="lazy" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
                 </div>
                 <div class="card-content">
-                    <div class="badge-container" style="margin-bottom: 0.5rem;">
+                    <div style="margin-bottom: 0.5rem;">
                         <span class="badge">${item.continente}</span>
                     </div>
                     <h3 class="card-title">${item.nome}</h3>
@@ -72,18 +94,21 @@ function renderPage() {
                 </div>
             `;
             gallery.appendChild(card);
+            
+            // Observe each card for staggered reveal
+            revealObserver.observe(card);
         });
     }
     
     // Update pagination controls
-    pageInfo.textContent = `Pagina ${currentPage} / ${totalPages} (${filteredData.length} risultati)`;
+    pageInfo.textContent = `Pagina ${currentPage} / ${totalPages} — ${filteredData.length} risultati`;
     btnPrev.disabled = currentPage === 1;
     btnNext.disabled = currentPage === totalPages;
     
-    btnPrev.style.opacity = currentPage === 1 ? '0.5' : '1';
+    btnPrev.style.opacity = currentPage === 1 ? '0.4' : '1';
     btnPrev.style.cursor = currentPage === 1 ? 'not-allowed' : 'pointer';
     
-    btnNext.style.opacity = currentPage === totalPages ? '0.5' : '1';
+    btnNext.style.opacity = currentPage === totalPages ? '0.4' : '1';
     btnNext.style.cursor = currentPage === totalPages ? 'not-allowed' : 'pointer';
 }
 
@@ -124,7 +149,7 @@ btnNext.addEventListener('click', () => {
     }
 });
 
-// Inizializzazione Google GeoChart
+// ── Google GeoChart ──
 google.charts.load('current', {
   'packages':['geochart'],
 });
@@ -135,7 +160,7 @@ function drawRegionsMap() {
     ['Continente', 'Area'],
     ['002', 'Africa'], 
     ['150', 'Europa'], 
-    ['019', 'Americhe'], // La mappa di Google gestisce le Americhe come unico continente '019'
+    ['019', 'Americhe'],
     ['142', 'Asia'], 
     ['009', 'Oceania']  
   ]);
@@ -143,10 +168,11 @@ function drawRegionsMap() {
   const options = {
     resolution: 'continents',
     backgroundColor: 'transparent',
-    datalessRegionColor: 'rgba(255,255,255, 0.1)',
-    defaultColor: 'rgba(255,255,255, 0.1)',
-    colorAxis: {colors: ['#c29b62', '#c29b62']},
-    legend: 'none'
+    datalessRegionColor: '#e8e3d9',
+    defaultColor: '#e8e3d9',
+    colorAxis: {colors: ['#b8542a', '#b8542a']},
+    legend: 'none',
+    tooltip: { trigger: 'none' }
   };
 
   const container = document.getElementById('regions_div');
@@ -168,7 +194,6 @@ function drawRegionsMap() {
       continentFilter.value = filterValue;
       filterData();
       
-      // Focus sulla griglia
       setTimeout(() => {
           document.querySelector('.controls-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
