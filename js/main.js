@@ -1,18 +1,10 @@
 let allData = [];
 let filteredData = [];
 
-// Pagination state
-let currentPage = 1;
-const itemsPerPage = 30;
-
 const gallery = document.getElementById('gallery');
 const loading = document.getElementById('loading');
 const searchInput = document.getElementById('searchInput');
 const continentFilter = document.getElementById('continentFilter');
-const pagination = document.getElementById('pagination');
-const pageInfo = document.getElementById('page-info');
-const btnPrev = document.getElementById('btnPrev');
-const btnNext = document.getElementById('btnNext');
 
 // Fallback image url
 const FALLBACK_IMG = "https://placehold.co/600x400/e8e3d9/6b6660?text=Anteprima%0ANon+Disponibile&font=playfair-display";
@@ -44,7 +36,6 @@ async function loadData() {
         
         loading.classList.add('hidden');
         gallery.classList.remove('hidden');
-        pagination.classList.remove('hidden');
         
         // Update sample count in header
         const countEl = document.getElementById('sampleCount');
@@ -62,19 +53,10 @@ async function loadData() {
 function renderPage() {
     gallery.innerHTML = '';
     
-    // Pagination logic
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage) || 1;
-    if (currentPage > totalPages) currentPage = totalPages;
-    if (currentPage < 1) currentPage = 1;
-    
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const itemsToRender = filteredData.slice(startIndex, endIndex);
-    
-    if (itemsToRender.length === 0) {
+    if (filteredData.length === 0) {
         gallery.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: var(--fg-muted); font-family: var(--font-display); font-style: italic; font-size: 1.2rem; padding: 3rem;">Nessun campione trovato.</p>`;
     } else {
-        itemsToRender.forEach((item) => {
+        filteredData.forEach((item) => {
             const card = document.createElement('div');
             card.className = 'card';
             
@@ -99,17 +81,6 @@ function renderPage() {
             revealObserver.observe(card);
         });
     }
-    
-    // Update pagination controls
-    pageInfo.textContent = `Pagina ${currentPage} / ${totalPages} — ${filteredData.length} risultati`;
-    btnPrev.disabled = currentPage === 1;
-    btnNext.disabled = currentPage === totalPages;
-    
-    btnPrev.style.opacity = currentPage === 1 ? '0.4' : '1';
-    btnPrev.style.cursor = currentPage === 1 ? 'not-allowed' : 'pointer';
-    
-    btnNext.style.opacity = currentPage === totalPages ? '0.4' : '1';
-    btnNext.style.cursor = currentPage === totalPages ? 'not-allowed' : 'pointer';
 }
 
 function filterData() {
@@ -124,30 +95,12 @@ function filterData() {
         return matchesTerm && matchesContinent;
     });
     
-    currentPage = 1;
     renderPage();
 }
 
 // Event Listeners
 searchInput.addEventListener('input', filterData);
 continentFilter.addEventListener('change', filterData);
-
-btnPrev.addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--;
-        renderPage();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-});
-
-btnNext.addEventListener('click', () => {
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-    if (currentPage < totalPages) {
-        currentPage++;
-        renderPage();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-});
 
 // ── Google GeoChart ──
 google.charts.load('current', {
