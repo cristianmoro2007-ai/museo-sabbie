@@ -640,8 +640,30 @@ footer a {
   }
 
   .gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     padding: 0 1.5rem;
+    gap: 0.5rem;
+  }
+
+  .card-img-wrapper {
+    height: 120px;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-subtitle {
+     font-size: 0.7rem;
+  }
+  
+  .card-content {
+      padding: 0.8rem;
+  }
+  
+  .btn {
+      padding: 0.5rem 0.5rem;
+      font-size: 0.6rem;
   }
 
   .pagination {
