@@ -1,0 +1,243 @@
+Alabama
+Algeria
+Arizona
+Bahamas
+Belgio
+Belgio, Fiandre occidentali
+Belize
+Belluno
+Benin
+Birmania
+Birmania (Myanmar)
+Brasile
+Brasile, Canoa Quebrada
+Brasile, Icapui Ceara
+Brasile, Rio de Janeiro
+Bulgaria
+California
+California, Humbolt County
+California, San Francisco
+California, Stovepipe Wells
+California, san Bernardino County
+Cape Cod
+Cipro, Protara
+Connecticut, Old Saybrook
+Costa Rica
+Croazia
+Croazia, Istria
+Croazia, Umago
+Cuba
+Cuba, Guantanamo
+Cuba, Havana
+Cuba, Pinar Del Rio
+Cuba, Sancti Spiritus
+Cuba, Santiago
+Cuba, Villa Clara
+Danimarca
+Ecuador
+Egitto
+Egitto, Assuan
+Egitto, Assul
+Egitto, Luxor
+Egitto, Mohammed
+Emirati Arabi
+Estonia
+Filippine
+Florida
+France
+France, Bonifacio
+France, Calvados
+France, Costa Azzurra
+France, Finistère
+France, Gironda
+France, Manica
+France, Nonza
+France, Parigi
+France, Plevenon
+Francia
+Francia, Cannes
+Francia, Cherbourg
+Francia, Costa azzurra
+Galles           Gran Bretagna
+Giordania
+Gran Bretagna
+Gran Bretagna, Scozia
+Grecia
+Grecia, Kini
+Grecia, Sand
+Grecia, Santorini
+Illinois, Chicago
+India
+India, Vrind Mathura
+Indonesia
+Irlanda
+Irlanda del Nord Gran Bretagna, Belfast
+Irlanda, Aughacasla
+Irlanda, Ballyconneely
+Irlanda, Brackaharagh Caherdaniel
+Irlanda, Caherdaniel
+Irlanda, Gowlaun
+Irlanda, Sligo
+Irlanda, Westport
+Islanda
+Islanda, Dimmuborgir
+Israele
+Italy
+Italy, Agrigento
+Italy, Ancona
+Italy, Ascoli Piceno
+Italy, Bari
+Italy, Belluno
+Italy, Bolzano
+Italy, Brescia
+Italy, Brindisi
+Italy, Cagliari
+Italy, Campobasso
+Italy, Carbonia-Iglesias
+Italy, Caserta
+Italy, Catania
+Italy, Catanzaro
+Italy, Chieti
+Italy, Chioggia-Venezia
+Italy, Cosenza
+Italy, Crotone
+Italy, Crotone KR
+Italy, Ferrara
+Italy, Foggia
+Italy, Gorizia
+Italy, Grosseto
+Italy, Imperia
+Italy, La Spezia
+Italy, Latina
+Italy, Lecce
+Italy, Livorno
+Italy, Lucca
+Italy, Lucoli
+Italy, Macerata
+Italy, Marsala
+Italy, Massa Carrara
+Italy, Matera
+Italy, Messina
+Italy, Napoli
+Italy, Nuoro
+Italy, OG (Ogliastra) Nuoro
+Italy, Ogliastra
+Italy, Olbia - Tempio
+Italy, Olbia Tempio
+Italy, Olbia-Tempio
+Italy, Oristano
+Italy, Palermo
+Italy, Perugia
+Italy, Pesao Urbino
+Italy, Pesaro - Urbino
+Italy, Pesaro Urbino
+Italy, Pisa
+Italy, Potenza
+Italy, Ragusa
+Italy, Reggio Calabria
+Italy, Rimini
+Italy, Roma
+Italy, Roma sud
+Italy, Rovigo
+Italy, Salerno
+Italy, Sassari
+Italy, Siena
+Italy, Siracusa
+Italy, Taranto
+Italy, Teramo
+Italy, Trapani
+Italy, Trento
+Italy, Treviso
+Italy, Udine
+Italy, Venezia
+Italy, Vibio Valentia
+Italy, Vibo Valentia
+Italy, Viterbo
+Kenia
+Libano
+Libano, Beirut
+Libia
+Lituania
+Madagascar
+Malesia
+Malta
+Marocco
+Massachusetts, Cape Cod
+Messico
+Messico, Yucatan
+Mexico
+Namibia
+New Mexico
+Nigeria, Lagos
+Norvegia
+Norvegia, Jorpeland
+Olanda
+Olanda, Frisia
+Olanda, Gelderland
+Olanda, Utrecht
+Olanda, Zeeland
+Pakistan, miniera
+Perù
+Perù, Ica
+Polonia
+Polonia, Danzica
+Portogallo
+Portogallo, Algarve
+Portogallo, Isola San Miguel
+Portogallo, Lisbona
+Portogallo, Loulè
+Portogallo, Sagres -Algarve
+Portogallo, Sintra
+Regno Unito
+Repubblica Capo verde
+Repubblica Dominicana
+Repubblica Dominicana, Las Terrenas
+Repubblica Dominicana, Santo Domingo
+Repubblica delle Maldive
+Repubblica di Mauritius
+Romania
+Sconosciuta
+Senegal
+Siria
+Slovenia
+Spagin
+Spagna
+Spagna, Cadice
+Spagna, Girona
+Spain
+Spain, Barcellona
+Spain, Costa Brava
+Spain, Formentera
+Spain, Fuerteventura
+Spain, Galizia
+Spain, Girona
+Spain, La Palma
+Spain, Lanzarote
+Spain, Las Palmas
+Spain, Malaga
+Spain, Minorca
+Spain, Palma di Maiorca
+Spain, Tenerife
+Sri Lanka, Puttalam
+SudAfrica
+Sudafrica
+Sudafrica, Westen cape
+Svezia
+Svezia, Stoccolma
+Tanzania
+Thailandia
+Thailandia, Phang Nga
+Thailandia, Satun
+Tunisia
+Turchia
+USA
+Ungheria
+Utah
+Utah, Great Salt lake
+Uzbekistan, A sud di Samarcanda
+Venezuela
+Venezuela, Tucacas
+Vietnam
+Wyoming, Sheep Mountain
+Wyoming, USA
+Yemen

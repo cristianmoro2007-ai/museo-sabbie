@@ -62,6 +62,80 @@ function renderDetail(item) {
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
+
+    // ── Mini-map + Google Earth ──
+    initLocationSection(item);
+}
+
+async function initLocationSection(item) {
+    const locationSection = document.getElementById('location-section');
+    const earthLink = document.getElementById('google-earth-link');
+    const label = document.getElementById('location-label');
+
+    locationSection.classList.remove('hidden');
+    label.textContent = "Ricerca posizione in corso...";
+    
+    // Default fallback link using text search in Google Earth
+    const searchQuery = encodeURIComponent(item.provenienza);
+    earthLink.href = `https://earth.google.com/web/search/${searchQuery}`;
+
+    try {
+        // Geocoding on the fly via Nominatim API
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${searchQuery}&format=json&limit=1`);
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            const lat = parseFloat(data[0].lat);
+            const lng = parseFloat(data[0].lon);
+            
+            label.textContent = `${item.provenienza} — ${lat.toFixed(2)}°, ${lng.toFixed(2)}°`;
+            
+            // Update Google Earth link to specific coordinates
+            earthLink.href = `https://earth.google.com/web/@${lat},${lng},10000a,1000d,35y,0h,0t,0r`;
+
+            // Setup 3D Globe with Globe.gl
+            const minimapContainer = document.getElementById('detail-minimap');
+            minimapContainer.innerHTML = '';
+            
+            const globe = Globe()(minimapContainer)
+                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+                .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+                .backgroundColor('rgba(0,0,0,0)')
+                .width(minimapContainer.clientWidth)
+                .height(minimapContainer.clientHeight)
+                .pointsData([{ lat: lat, lng: lng }])
+                .pointAltitude(0.02)
+                .pointColor(() => '#b8542a')
+                .pointRadius(() => 1.2)
+                .pointResolution(32);
+
+            // Set initial camera position to the location
+            setTimeout(() => {
+                globe.pointOfView({ lat: lat, lng: lng, altitude: 1.8 }, 2000);
+            }, 300);
+
+            // Auto-rotate the globe slowly
+            globe.controls().autoRotate = true;
+            globe.controls().autoRotateSpeed = 0.8;
+            globe.controls().enableZoom = false; // Disable zoom to keep it contained
+            
+            window.addEventListener('resize', () => {
+                if (minimapContainer.clientWidth) {
+                    globe.width(minimapContainer.clientWidth);
+                    globe.height(minimapContainer.clientHeight);
+                }
+            });
+
+        } else {
+            // Geocoding failed, hide map but keep Earth link text search
+            document.getElementById('detail-minimap').style.display = 'none';
+            label.textContent = `Posizione: ${item.provenienza}`;
+        }
+    } catch (e) {
+        console.error("Geocoding error:", e);
+        document.getElementById('detail-minimap').style.display = 'none';
+        label.textContent = `Posizione: ${item.provenienza}`;
+    }
 }
 
 function showError() {

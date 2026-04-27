@@ -83,12 +83,53 @@ function renderPage() {
     }
 }
 
+const searchAliases = {
+    "italia": ["italy", "italia", "sardegna", "sicilia", "venezia", "roma", "belluno"],
+    "usa": ["usa", "california", "wyoming", "massachusetts", "florida", "arizona", "utah", "new mexico", "illinois", "connecticut", "alabama", "cape cod"],
+    "spagna": ["spain", "spagna", "spagin", "tenerife", "lanzarote", "fuerteventura", "canarie"],
+    "francia": ["france", "francia", "corsica"],
+    "regno unito": ["regno unito", "uk", "gran bretagna", "galles", "scozia", "inghilterra", "irlanda del nord"],
+    "messico": ["mexico", "messico"],
+    "sudafrica": ["sudafrica", "sud africa"],
+    "brasile": ["brasile", "brazil"],
+    "olanda": ["olanda", "netherlands"],
+    "egitto": ["egitto", "egypt"],
+    "marocco": ["marocco", "morocco"]
+};
+
 function filterData() {
-    const term = searchInput.value.toLowerCase();
+    const rawTerm = searchInput.value.toLowerCase().trim();
     const continent = continentFilter.value;
     
+    let searchTerms = [rawTerm];
+    let isAliasSearch = false;
+    
+    // Controlla se il termine corrisponde a una delle nazioni con alias
+    for (const [key, aliases] of Object.entries(searchAliases)) {
+        if (key === rawTerm || aliases.includes(rawTerm)) {
+            // Se c'è un match, cerchiamo tutte le varianti
+            searchTerms = [...aliases, key];
+            isAliasSearch = true;
+            break;
+        }
+    }
+    
+    // Creiamo regex con boundary \b per evitare che "roma" trovi "romania" o "usa" trovi "siracusa"
+    const regexes = isAliasSearch ? searchTerms.map(t => new RegExp(`\\b${t}\\b`, 'i')) : [];
+    
     filteredData = allData.filter(item => {
-        const matchesTerm = item.nome.toLowerCase().includes(term) || item.provenienza.toLowerCase().includes(term);
+        const itemNome = item.nome.toLowerCase();
+        const itemProv = item.provenienza.toLowerCase();
+        
+        let matchesTerm = false;
+        if (rawTerm === '') {
+            matchesTerm = true;
+        } else if (isAliasSearch) {
+            matchesTerm = regexes.some(r => r.test(itemNome) || r.test(itemProv));
+        } else {
+            matchesTerm = searchTerms.some(t => itemNome.includes(t) || itemProv.includes(t));
+        }
+        
         const matchesContinent = continent === 'all' || 
                                  item.continente === continent ||
                                  (continent === 'Americhe' && (item.continente === 'Nord America' || item.continente === 'Sud America'));
@@ -102,59 +143,98 @@ function filterData() {
 searchInput.addEventListener('input', filterData);
 continentFilter.addEventListener('change', filterData);
 
-// ── Google GeoChart ──
-google.charts.load('current', {
-  'packages':['geochart'],
-});
-google.charts.setOnLoadCallback(drawRegionsMap);
+// ── Mappa Leaflet Interattiva ──
+let map;
+let geojsonLayer;
 
-function drawRegionsMap() {
-  const mapData = google.visualization.arrayToDataTable([
-    ['Continente', 'Area'],
-    ['002', 'Africa'], 
-    ['150', 'Europa'], 
-    ['019', 'Americhe'],
-    ['142', 'Asia'], 
-    ['009', 'Oceania']  
-  ]);
+const countryNameMap = {
+    "United States of America": "USA",
+    "Italy": "Italia",
+    "Egypt": "Egitto",
+    "Morocco": "Marocco",
+    "Netherlands": "Olanda",
+    "South Africa": "Sudafrica",
+    "Dominican Republic": "Repubblica Dominicana",
+    "Mexico": "Messico",
+    "Greece": "Grecia",
+    "Croatia": "Croazia",
+    "Philippines": "Filippine",
+    "United Kingdom": "Regno Unito",
+    "Japan": "Giappone",
+    "China": "Cina",
+    "Germany": "Germania",
+    "France": "Francia",
+    "Spain": "Spagna",
+    "Brazil": "Brasile"
+};
 
-  const options = {
-    resolution: 'continents',
-    backgroundColor: 'transparent',
-    datalessRegionColor: '#e8e3d9',
-    defaultColor: '#e8e3d9',
-    colorAxis: {colors: ['#b8542a', '#b8542a']},
-    legend: 'none',
-    tooltip: { trigger: 'none' }
-  };
+function initMap() {
+    map = L.map('map').setView([20, 0], 2);
+    
+    // Mappa di base con stile chiaro
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(map);
 
-  const container = document.getElementById('regions_div');
-  if(!container) return;
-  const chart = new google.visualization.GeoChart(container);
-  
-  google.visualization.events.addListener(chart, 'select', function() {
-    const selection = chart.getSelection();
-    if (selection.length > 0) {
-      const code = mapData.getValue(selection[0].row, 0);
-      let filterValue = 'all';
-      
-      if(code === '002') filterValue = 'Africa';
-      else if(code === '150') filterValue = 'Europa';
-      else if(code === '019') filterValue = 'Americhe';
-      else if(code === '142') filterValue = 'Asia';
-      else if(code === '009') filterValue = 'Oceania';
-      
-      continentFilter.value = filterValue;
-      filterData();
-      
-      setTimeout(() => {
-          document.querySelector('.controls-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
-  });
-
-  chart.draw(mapData, options);
+    // Carica i confini dal file GeoJSON locale
+    fetch('countries.geo.json')
+        .then(response => response.json())
+        .then(data => {
+            geojsonLayer = L.geoJSON(data, {
+                style: function(feature) {
+                    return {
+                        fillColor: '#e8e3d9',
+                        weight: 1,
+                        opacity: 1,
+                        color: '#a39c93',
+                        fillOpacity: 0.6
+                    };
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.on({
+                        mouseover: function(e) {
+                            var targetLayer = e.target;
+                            targetLayer.setStyle({
+                                fillColor: '#b8542a',
+                                fillOpacity: 0.6,
+                                color: '#8a3c1c',
+                                weight: 2
+                            });
+                            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                                targetLayer.bringToFront();
+                            }
+                        },
+                        mouseout: function(e) {
+                            geojsonLayer.resetStyle(e.target);
+                        },
+                        click: function(e) {
+                            const rawName = feature.properties.name;
+                            const mappedName = countryNameMap[rawName] || rawName;
+                            
+                            searchInput.value = mappedName;
+                            continentFilter.value = 'all'; // Reset continente
+                            filterData();
+                            
+                            setTimeout(() => {
+                                document.querySelector('.controls-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 100);
+                        }
+                    });
+                    
+                    layer.bindTooltip(feature.properties.name, {
+                        className: 'map-tooltip',
+                        sticky: true
+                    });
+                }
+            }).addTo(map);
+        })
+        .catch(err => console.error("Errore nel caricamento della mappa:", err));
 }
 
 // Initialize
-window.addEventListener('DOMContentLoaded', loadData);
+window.addEventListener('DOMContentLoaded', () => {
+    loadData();
+    initMap();
+});

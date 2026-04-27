@@ -496,6 +496,70 @@ input:focus, select:focus {
   color: var(--fg);
 }
 
+/* ── Location Section ── */
+.location-section {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.location-section h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--charcoal);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.location-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: white;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(28, 27, 24, 0.06);
+}
+
+.detail-minimap {
+  width: 100%;
+  height: 250px;
+  background: var(--bone-dark);
+  border: 1px solid var(--border);
+  z-index: 1;
+}
+
+.location-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.location-label {
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  font-family: var(--font-body);
+}
+
+.btn-earth {
+  display: inline-flex;
+  align-items: center;
+  background: #1a73e8; /* Google blue */
+  color: white;
+  border-color: #1a73e8;
+}
+
+.btn-earth:hover {
+  background: #1557b0;
+  border-color: #1557b0;
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
 /* ── QR Code Section ── */
 .qr-section {
   margin-top: 3rem;
