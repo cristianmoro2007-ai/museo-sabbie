@@ -441,8 +441,9 @@ input:focus, select:focus {
 .detail-img {
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
+  max-height: 80vh;
+  object-fit: contain;
+  background-color: var(--bone-dark);
   border-radius: 0;
   border: none;
   box-shadow: 0 20px 60px rgba(28, 27, 24, 0.12);
@@ -680,7 +681,7 @@ footer a {
   }
 
   .detail-img {
-    aspect-ratio: 16 / 10;
+    max-height: 50vh;
   }
 }
 
