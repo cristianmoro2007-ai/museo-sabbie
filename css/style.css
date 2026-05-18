@@ -8,37 +8,40 @@
 /* ── Design Tokens ── */
 :root {
   /* Palette */
-  --bone:       #f4f1eb;
-  --bone-dark:  #e8e3d9;
-  --charcoal:   #1c1b18;
+  --bone: #f4f1eb;
+  --bone-dark: #e8e3d9;
+  --charcoal: #1c1b18;
   --charcoal-50: rgba(28, 27, 24, 0.5);
   --terracotta: #b8542a;
   --terracotta-light: #d4714b;
-  --ochre:      #c49a3c;
+  --ochre: #c49a3c;
   --ochre-muted: rgba(196, 154, 60, 0.15);
-  --sand:       #d4c9a8;
-  --olive:      #6b6b45;
+  --sand: #d4c9a8;
+  --olive: #6b6b45;
 
   /* Semantic */
-  --bg:         var(--bone);
-  --fg:         var(--charcoal);
-  --fg-muted:   #6b6660;
-  --accent:     var(--terracotta);
+  --bg: var(--bone);
+  --fg: var(--charcoal);
+  --fg-muted: #6b6660;
+  --accent: var(--terracotta);
   --accent-hover: var(--terracotta-light);
-  --surface:    rgba(255, 255, 255, 0.7);
-  --border:     rgba(28, 27, 24, 0.08);
+  --surface: rgba(255, 255, 255, 0.7);
+  --border: rgba(28, 27, 24, 0.08);
 
   /* Typography */
   --font-display: 'Cormorant Garamond', 'Georgia', serif;
-  --font-body:    'DM Sans', 'Helvetica Neue', sans-serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
 
   /* Spacing & Shape */
-  --radius: 0px;  /* Sharp museum archive edges */
+  --radius: 0px;
+  /* Sharp museum archive edges */
   --transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Reset ── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -62,8 +65,10 @@ body {
 body::before {
   content: '';
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 9999;
   opacity: 0.035;
@@ -78,11 +83,9 @@ header {
   padding: 6rem 2rem 4rem;
   text-align: center;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(
-    180deg,
-    var(--bone) 0%,
-    var(--bone-dark) 100%
-  );
+  background: linear-gradient(180deg,
+      var(--bone) 0%,
+      var(--bone-dark) 100%);
   overflow: hidden;
 }
 
@@ -141,7 +144,7 @@ h1 em {
   color: var(--accent);
 }
 
-header > p {
+header>p {
   font-family: var(--font-display);
   font-size: 1.15rem;
   font-style: italic;
@@ -211,7 +214,8 @@ header > p {
   flex-wrap: wrap;
 }
 
-input, select {
+input,
+select {
   padding: 0.9rem 1.4rem;
   border-radius: 0;
   border: 1px solid rgba(28, 27, 24, 0.15);
@@ -245,7 +249,8 @@ select option {
   color: var(--charcoal);
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(184, 84, 42, 0.08);
 }
@@ -441,9 +446,8 @@ input:focus, select:focus {
 .detail-img {
   width: 100%;
   height: auto;
-  max-height: 80vh;
-  object-fit: contain;
-  background-color: var(--bone-dark);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
   border-radius: 0;
   border: none;
   box-shadow: 0 20px 60px rgba(28, 27, 24, 0.12);
@@ -550,7 +554,8 @@ input:focus, select:focus {
 .btn-earth {
   display: inline-flex;
   align-items: center;
-  background: #1a73e8; /* Google blue */
+  background: #1a73e8;
+  /* Google blue */
   color: white;
   border-color: #1a73e8;
 }
@@ -648,6 +653,7 @@ footer a {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -655,8 +661,13 @@ footer a {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-fade-in {
@@ -681,7 +692,7 @@ footer a {
   }
 
   .detail-img {
-    max-height: 50vh;
+    aspect-ratio: 16 / 10;
   }
 }
 
@@ -699,7 +710,8 @@ footer a {
     padding: 0 1.5rem;
   }
 
-  input, select {
+  input,
+  select {
     min-width: unset;
     width: 100%;
   }
@@ -713,22 +725,22 @@ footer a {
   .card-img-wrapper {
     height: 120px;
   }
-  
+
   .card-title {
     font-size: 1rem;
   }
 
   .card-subtitle {
-     font-size: 0.7rem;
+    font-size: 0.7rem;
   }
-  
+
   .card-content {
-      padding: 0.8rem;
+    padding: 0.8rem;
   }
-  
+
   .btn {
-      padding: 0.5rem 0.5rem;
-      font-size: 0.6rem;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.6rem;
   }
 
   .pagination {
